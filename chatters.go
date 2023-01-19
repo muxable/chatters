@@ -3,9 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 type Chatters struct {
@@ -32,7 +33,7 @@ func main() {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -70,7 +71,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		err = ioutil.WriteFile("chatters.json", file, 0644)
+		err = os.WriteFile("chatters.json", file, 0644)
 		if err != nil {
 			log.Fatal(err)
 		}
